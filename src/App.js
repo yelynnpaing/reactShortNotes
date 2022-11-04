@@ -1,31 +1,58 @@
-import logo from './logo.svg';
+import React,{useRef, useState} from 'react';
 import './App.css';
-import React from 'react';
 
-class Title extends React.Component{
-  render(){
-    return(
-      <h1>{this.props.name}</h1>
-    )
-  }
+const Items = ({name, price}) =>{
+  return(
+    <li>
+      {name}, ${price}
+    </li>
+  )
 }
 
-class Header extends React.Component{
-  render(){
-    return(
-      <Title name = {this.props.name} />
-    )
-  }
-}
+const App = props =>{
 
-class App extends React.Component{
-  render(){
-    return (
-      <div className= "App-header " >
-        <Header name = "Hello Ract" />
-      </div>
-    )
+  let [items, setItems] = useState([
+    {id:1, name:"apple", price:10},
+    {id:2, name:"orange", price:8},
+  ]);
+
+  let nameRef = useRef();
+  let priceRef = useRef();
+
+  const add = props =>{
+    if(nameRef.current.value === "" || priceRef.current.value === ""){
+      alert("Type into the Input Area")
+    }else{
+      let id = items.length + 1;
+      let name = nameRef.current.value;
+      let price = priceRef.current.value;
+      return(
+        setItems([
+          ...items,
+        {id, name ,price},
+        ]),
+        nameRef.current.value = null,
+        priceRef.current.value = null
+      )
   }
+    }
+    
+  return (
+    <div className="App-header">
+      <ul>
+        {items.map(i =>
+          <Items 
+            key={i.id}
+            name={i.name} 
+            price= {i.price} 
+          />
+        )}
+      </ul>
+      <input ref={nameRef} /> <span style={{display:"none", color:"red"}}>Write Alphabet Only !</span> <br/>
+      <input ref={priceRef} /> <br/>
+      <button onClick={add}>Add Item</button>
+    </div>
+  )
 }
 
 export default App;

@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 
+// class component AddItems
 class Items extends React.Component{
   render(){
     return (
@@ -12,6 +13,28 @@ class Items extends React.Component{
     )
   }
 }
+
+/* 
+functional Component
+
+const Items = props => {
+  return(
+    <li>
+        {props.name},
+        {props.price}
+    </li>
+  )
+}
+
+//destructuring 
+const Items = ({name, price}) =>(
+    <li>
+      {name}, ${price}
+    </li>
+)
+
+
+*/
 
 class AddForm extends React.Component{
   nameRef = React.createRef();
